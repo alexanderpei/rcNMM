@@ -4,8 +4,8 @@ clc
 clear all
 close all
 
-load ftdata
-load ftdata_freq
+load ftdata_1
+load ftdata_1_freq
 
 %% Calculate the energy over all trials
 

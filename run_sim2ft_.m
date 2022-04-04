@@ -12,7 +12,7 @@ dur = 4;
 Fs = nSample/dur;
 chanLabels  = {'y1','y2', 'ac1', 'ac2', 'x15-x16', 'x25-x26'};
 nChannel = length(chanLabels);
-nTrials = 100;
+nTrials = 10;
 
 labels = [];
 
@@ -61,3 +61,5 @@ ftdata.label = ftdata.label(:);
 ftdata.trialinfo = labels';
 
 save(['ftdata_' num2str(nExp)], 'ftdata' , '-v7.3')
+
+beep

@@ -9,7 +9,7 @@ load sol
 %%
 
 fig = figure;
-fig.Position = [587         400        1360/2         371]; 
+fig.Position = [587 400 1360/2 371]; 
 % Time series
 hold on
 box on

@@ -4,7 +4,7 @@ clc
 clear all
 close all
 
-coi = 7;
+coi = 1;
 
 load ftdata_1
 load ftdata_1_freq
@@ -26,7 +26,7 @@ load ftdata_3
 load ftdata_3_freq
 
 cfg = [];
-cfg.trials = ftdata.trialinfo == coi;
+cfg.trials = ftdata.trialinfo == 1;
 ftdata3 = ftdata;
 freq3 = freq;
 
@@ -39,7 +39,7 @@ coi = 1;
 
 nCond = 3;
 nChan = 4;
-nTrial = 100;
+nTrial = 10;
 
 en = zeros(nTrial, nCond, nChan);
 
@@ -70,7 +70,17 @@ end
 [h, p1] = ttest(en(:, 1, 1), en(:, 2, 1))
 [h, p2] = ttest(en(:, 1, 1), en(:, 3, 1))
 
+%% Scatter
 
+figure
+hold on
+for i = 1:nTrial
+    scatter(1, en(i, 1, 1),'k','filled')
+    scatter(2, en(i, 2, 1),'k','filled')
+    scatter(3, en(i, 3, 1),'k','filled')
+    line([1 2], [en(i, 1, 1) en(i, 2, 1)])
+    line([2 3], [en(i, 2, 1) en(i, 3, 1)])
+end
 %% Make a bargraph
 
 iChan = 1;
@@ -109,9 +119,7 @@ ax = gca;
 ax.FontSize = 16;
 ax.LineWidth = 1.5;
 
-
 end
-
 
 %% Plot with and without AC
 

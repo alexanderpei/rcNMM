@@ -1,12 +1,19 @@
 %% Train the ESN
 
+% Trains the ESN on the generated training data. Also uses different log
+% fractions of the training data
+%
+% The average of 5 ESNs is used as the final output
+
 clear all
 close all
 
 warning('off','all')
+addpath('freqGen')
 
 fracData = 10./logspace(1,4,10);
 fracData = fracData(1:end-1);
+fracData = fracData(1);
 
 for f = 1:length(fracData)
 
@@ -33,14 +40,12 @@ for iTrial = 1:nTrial
 end
 
 iPerm = randperm(nTrial);
-%iPerm = iPerm(1:floor(length(iPerm)/1));
 
 splitFrac = 0.8;
 nTrain = splitFrac*length(iPerm);
 nTest  = length(iPerm)-nTrain;
 
 nTrain = floor(nTrain*fracData(f));
-% nTest  = floor(nTest*f);
 
 xTrain = xCell(iPerm(1:nTrain), :); 
 yTrain = yCell(iPerm(1:nTrain), :);
@@ -79,8 +84,6 @@ for iEsn = 1:nEsn
 
 esn.methodWeightCompute = 'pseudoinverse';
 esn.internalWeights     = esn.internalWeights_UnitSR * esn.spectralRadius;
-% esn.outputActivationFunction = 'tanh'; 
-% esn.inverseOutputActivationFunction = 'tanh'; 
 
 %% Train the ESN
 
@@ -130,22 +133,5 @@ end
 
 save(fullfile(pathEsnOut, ['esn_' num2str(f) '.mat']), 'allEsn', 'errors', '-v7.3')
 
-
 end
 
-% c = 0;
-% for iFile = 1:length(dirData)
-% 
-%     load(fullfile(dirData(iFile).folder, dirData(iFile).name))
-% 
-%     for iTrial = 1:length(sol)
-%         c = c + 1;
-%         iStart = (c-1)*nTime+1;
-%         iEnd   = iStart+nTime-1;
-%         P.u{iTrial, 3}(101:200) = predictedOutput(iStart:iEnd, 1).*50;
-%         P.u{iTrial, 4}(101:200) = predictedOutput(iStart:iEnd, 2).*50;
-%     end
-% 
-%     save(fullfile(pathDataOut, dirData(iFile).name), 'P', 'sol')
-%     
-% end

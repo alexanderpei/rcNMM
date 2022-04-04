@@ -1,5 +1,7 @@
 %% Script that runs the close-loop simulation
 
+% Main script to run the feedback stimulation
+
 % Two different experiments:
 % 1. Normal feedback prediction
 % 2. AC from a different random seed
@@ -12,7 +14,7 @@ warning off
 model = 'nmm_fb';
 load_system(model)
 nExp = 1;
-nTrial = 100;
+nTrial = 10;
 
 for i = 1:nTrial
     P(i) = fn_get_params_simu(1, 1);
@@ -25,7 +27,9 @@ for i = 1:length(fracData)
     esns{i} = ['esn_' num2str(i) '.mat'];
 end
 
+esns = esns(1);
 ks = [0.7:0.05:1];
+ks = 0.95;
 
 c = 0;
 
@@ -46,7 +50,6 @@ for f = 1:length(esns)
             in(c) = in(c).setBlockParameter([model '/AC Prediction'],  'MATLABFcn', 'fn_simu_pred_');
             in(c) = in(c).setBlockParameter([model '/u1'], 'Seed', num2str(P(i).seed(1)));
             in(c) = in(c).setBlockParameter([model '/u2'], 'Seed', num2str(P(i).seed(2)));
-            % in(c) = in(c).setModelParameter('SaveState', 'on');
             in(c) = in(c).setVariable('P', P(i), 'Workspace', model);
             in(c) = in(c).setVariable('ac1', ac1, 'Workspace', model);
             in(c) = in(c).setVariable('ac2', ac2, 'Workspace', model);
@@ -97,7 +100,6 @@ for f = 1:length(esns)
             in(c) = in(c).setBlockParameter([model '/AC Prediction'],  'MATLABFcn', 'fn_simu_zero');
             in(c) = in(c).setBlockParameter([model '/u1'], 'Seed', num2str(P(i).seed(1)));
             in(c) = in(c).setBlockParameter([model '/u2'], 'Seed', num2str(P(i).seed(2)));
-            % in(c) = in(c).setModelParameter('SaveState', 'on');
             in(c) = in(c).setVariable('P', P(i), 'Workspace', model);
             in(c) = in(c).setVariable('ac1', ac1, 'Workspace', model);
             in(c) = in(c).setVariable('ac2', ac2, 'Workspace', model);
@@ -141,7 +143,6 @@ for f = 1
             in(c) = in(c).setBlockParameter([model '/AC Prediction'],  'MATLABFcn', 'fn_simu_zero');
             in(c) = in(c).setBlockParameter([model '/u1'], 'Seed', num2str(P(i).seed(1)));
             in(c) = in(c).setBlockParameter([model '/u2'], 'Seed', num2str(P(i).seed(2)));
-            % in(c) = in(c).setModelParameter('SaveState', 'on');
             in(c) = in(c).setVariable('P', P(i), 'Workspace', model);
             in(c) = in(c).setVariable('ac1', ac1, 'Workspace', model);
             in(c) = in(c).setVariable('ac2', ac2, 'Workspace', model);
