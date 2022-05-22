@@ -5,8 +5,8 @@ close all
 
 %% Convert to Fieldtrip
 
-nExp = 3;
-nCond = 1;
+nExp = 2;
+nCond = 63;
 nSample = 400;
 dur = 4;
 Fs = nSample/dur;

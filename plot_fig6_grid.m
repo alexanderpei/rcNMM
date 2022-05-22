@@ -6,9 +6,9 @@ close all
 
 nCond = 3;
 nChan = 6;
-nTrial = 100;
+nTrial = 10;
 en = zeros(63, nTrial, nCond, nChan);
-freqs = zeros(63, 100, 6, 101);
+freqs = zeros(63, nTrial, 6, 101);
 
 ks = [0.7:0.05:1];
 esns = 1:9;

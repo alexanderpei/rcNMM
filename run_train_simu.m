@@ -13,7 +13,6 @@ addpath('freqGen')
 
 fracData = 10./logspace(1,4,10);
 fracData = fracData(1:end-1);
-fracData = fracData(1);
 
 for f = 1:length(fracData)
 

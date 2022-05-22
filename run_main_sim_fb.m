@@ -27,9 +27,7 @@ for i = 1:length(fracData)
     esns{i} = ['esn_' num2str(i) '.mat'];
 end
 
-esns = esns(1);
 ks = [0.7:0.05:1];
-ks = 0.95;
 
 c = 0;
 

@@ -4,7 +4,7 @@ clc
 clear all
 close all
 
-coi = 1;
+coi = 7;
 
 load ftdata_1
 load ftdata_1_freq
